@@ -3,14 +3,13 @@ package com.example.hackathon4_spaceghost;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class SplashScreen extends Activity {
 
-	
-	protected boolean _active=true;
-	protected int _splashTime=3000;
+	private static int SPLASH_TIME_OUT = 3000;
 	
 	
 	@Override
@@ -18,26 +17,16 @@ public class SplashScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 		
-		Thread splashThread = new Thread(){
-			@Override
+		
+		new Handler().postDelayed(new Runnable(){
 			public void run(){
-				try{
-					int waited = 0;
-					while(_active && (waited <_splashTime)){
-						sleep(100);
-						if(_active){
-							waited += 100;
+				Intent i = new Intent(SplashScreen.this, MainActivity.class);
+				startActivity(i);
+				finish();			
+			}
+		}, SPLASH_TIME_OUT);
+			}
+		
+		
 						}
-					}
-				}catch (Exception e){
-				} finally{
-					startActivity(new Intent(SplashScreen.this, MainActivity.class));
-					finish();
-				}
-			};
-		};
-		splashThread.start();
-	}
-
-	
-	}
+					
